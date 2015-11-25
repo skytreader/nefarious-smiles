@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import net.skytreader.kode.smiles.model.LocalDBContract;
+import net.skytreader.kode.smiles.model.LocalDBHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +67,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
+    private LocalDBHelper dbHelper = new LocalDBHelper(getApplicationContext());
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,8 +94,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View view) {
                 attemptLogin();
-                Intent smiles = new Intent(LoginActivity.this, SmilesActivity.class);
-                startActivity(smiles);
+
+                if(isInitialBrushAchieved()){
+
+                } else{
+                    Intent smiles = new Intent(LoginActivity.this, SmilesActivity.class);
+                    startActivity(smiles);
+                }
             }
         });
 
@@ -351,7 +362,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private boolean isInitialBrushAchieved(){
-        return false;
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String[] cols = {LocalDBContract.Achievement.C_IS_ACHIEVED};
+        String[] whereVal = {"brush-destiny"};
+        Cursor c = db.query(LocalDBContract.Achievement.TABLE_NAME,
+                cols, LocalDBContract.Achievement.C_CODE, whereVal, null, null, null);
+        try{
+            if(c.moveToFirst()){
+                return c.getInt(0) != 0;
+            }
+            return false;
+        } finally{
+            c.close();
+        }
     }
 }
 
