@@ -16,6 +16,9 @@ public class AchievementActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent i = getIntent();
+        name = i.getStringExtra("name");
+        desc = i.getStringExtra("desc");
         setContentView(R.layout.activity_achievement);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -28,11 +31,6 @@ public class AchievementActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
-        Intent i = getIntent();
-        name = i.getStringExtra("name");
-        desc = i.getStringExtra("desc");
-
     }
 
     @Override
