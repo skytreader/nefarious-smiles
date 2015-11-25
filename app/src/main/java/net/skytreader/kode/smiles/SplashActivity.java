@@ -2,6 +2,7 @@ package net.skytreader.kode.smiles;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -42,8 +43,12 @@ public class SplashActivity extends AppCompatActivity {
 
         mVisible = true;
 
-
         // Set up the user interaction to manually show or hide the system UI.
+        /*try{
+            OBTSDK.initialize(this);
+        } catch(PackageManager.NameNotFoundException nnfe){
+            nnfe.printStackTrace();
+        }*/
     }
 
     @Override
