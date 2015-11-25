@@ -15,7 +15,7 @@ public final class LocalDBContract {
         public static final String C_CODE = "code";
         public static final String C_NAME = "name";
         public static final String C_DESC = "description";
-        public static final String C_IS_ACHIEVED = "achieved";
+        public static final String C_IS_ACHIEVED = "is_achieved";
     }
 
     public static abstract class CurrentGear implements BaseColumns {
@@ -38,6 +38,6 @@ public final class LocalDBContract {
         /**
          * C_ALARM_TIME is the hour of day when alarm goes off, as an integer.
          */
-        public static final String C_ALARM_TIME = "";
+        public static final String C_ALARM_TIME = "alarm_time";
     }
 }

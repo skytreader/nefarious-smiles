@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.widget.Toast;
 
 import net.skytreader.kode.smiles.model.LocalDBContract;
 
@@ -12,12 +14,13 @@ import net.skytreader.kode.smiles.model.LocalDBContract;
  * Created by chad on 11/25/15.
  */
 public class LocalDBHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 6;
 
     public static final String DATABASE_NAME = "smiles";
     private static final String CREATE_ACHIEVEMENTS = "CREATE TABLE " + LocalDBContract.Achievement.TABLE_NAME + " (" +
             LocalDBContract.Achievement.C_ID + " INTEGER PRIMARY KEY," +
             LocalDBContract.Achievement.C_NAME + " TEXT," +
+            LocalDBContract.Achievement.C_CODE + " TEXT," +
             LocalDBContract.Achievement.C_DESC + " TEXT," +
             LocalDBContract.Achievement.C_IS_ACHIEVED + " INTEGER);";
     private static final String CREATE_CURRENT_GEARS = "CREATE TABLE " + LocalDBContract.CurrentGear.TABLE_NAME + " (" +
@@ -28,24 +31,30 @@ public class LocalDBHelper extends SQLiteOpenHelper {
     // Concatenate SQL statements here
     public static final String SQL_CREATE_STATEMENTS = CREATE_ACHIEVEMENTS + CREATE_CURRENT_GEARS + CREATE_ALARM_TIMES;
 
-    private static final String DROP_ACHIEVEMENTS = "DROP TABLE IF EXISTS " + LocalDBContract.Achievement.TABLE_NAME;
-    private static final String DROP_CURRENT_GEARS = "DROP TABLE IF EXISTS " + LocalDBContract.CurrentGear.TABLE_NAME;
-    private static final String DROP_ALARM_TIMES = "DROP TABLE IF EXISTS " + LocalDBContract.AlarmTime.TABLE_NAME;
+    private static final String DROP_ACHIEVEMENTS = "DROP TABLE IF EXISTS " + LocalDBContract.Achievement.TABLE_NAME + ";";
+    private static final String DROP_CURRENT_GEARS = "DROP TABLE IF EXISTS " + LocalDBContract.CurrentGear.TABLE_NAME + ";";
+    private static final String DROP_ALARM_TIMES = "DROP TABLE IF EXISTS " + LocalDBContract.AlarmTime.TABLE_NAME + ";";
     // Concatenate SQL statements here
     public static final String SQL_DROP_STATEMENTS = DROP_ACHIEVEMENTS + DROP_CURRENT_GEARS + DROP_ALARM_TIMES;
 
+    private Context c;
+
     public LocalDBHelper(Context c){
         super(c, DATABASE_NAME, null, DATABASE_VERSION);
+        this.c = c;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        Log.i("CHAD", SQL_CREATE_STATEMENTS);
         db.execSQL(SQL_CREATE_STATEMENTS);
         seedData(db);
+        Toast.makeText(this.c, "db created", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.i("CHAD", SQL_DROP_STATEMENTS);
         db.execSQL(SQL_DROP_STATEMENTS);
         onCreate(db);
     }

@@ -67,11 +67,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
-    private LocalDBHelper dbHelper = new LocalDBHelper(getApplicationContext());
+    private LocalDBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dbHelper = new LocalDBHelper(getApplicationContext());
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         setContentView(R.layout.activity_login);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -116,7 +118,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         String[] cols = {LocalDBContract.Achievement.C_IS_ACHIEVED};
         String[] whereVal = {"brush-destiny"};
         Cursor c = db.query(LocalDBContract.Achievement.TABLE_NAME,
-                cols, LocalDBContract.Achievement.C_CODE, whereVal, null, null, null);
+                cols, LocalDBContract.Achievement.C_CODE+"=?", whereVal, null, null, null);
         try{
             if(c.moveToFirst()){
                 return c.getInt(0) != 0;
@@ -133,7 +135,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         String[] cols = {LocalDBContract.Achievement.C_NAME, LocalDBContract.Achievement.C_DESC};
         String[] whereVal = {"brush-destiny"};
         Cursor c = db.query(LocalDBContract.Achievement.TABLE_NAME,
-                cols, LocalDBContract.Achievement.C_CODE, whereVal, null, null, null);
+                cols, LocalDBContract.Achievement.C_CODE+"=?", whereVal, null, null, null);
         try{
             if(c.moveToFirst()){
                 details[0] = c.getString(0);
