@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 
 public class AchievementActivity extends AppCompatActivity {
+    private String name, desc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,20 +29,22 @@ public class AchievementActivity extends AppCompatActivity {
             }
         });
 
+        Intent i = getIntent();
+        name = i.getStringExtra("name");
+        desc = i.getStringExtra("desc");
+
     }
 
     @Override
     protected void onNewIntent(Intent i){
         super.onNewIntent(i);
+        Log.i("CHAD", "new intent");
         setIntent(i);
     }
 
     @Override
     protected void onResume(){
         super.onResume();
-        Intent i = getIntent();
-        String name = i.getStringExtra("name");
-        String desc = i.getStringExtra("desc");
         Log.i("CHAD", "extras are: " + name + " " + desc);
 
         TextView nameView = (TextView) findViewById(R.id.unlockedAchievementName);

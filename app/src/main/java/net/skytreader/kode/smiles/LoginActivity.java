@@ -3,6 +3,7 @@ package net.skytreader.kode.smiles;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
@@ -99,7 +100,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 attemptLogin();
 
                 if(isInitialBrushAchieved()){
-
+                    Intent wait = new Intent(LoginActivity.this, WaitingActivity.class);
+                    startActivity(wait);
                 } else{
                     String[] smileDetails = fetchInitialBrushDetails();
                     Intent smiles = new Intent(LoginActivity.this, SmilesActivity.class);
@@ -112,6 +114,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+    }
+
+    private void setAchievementDone(String code){
+        ContentValues cv = new ContentValues();
+        cv.put(LocalDBContract.Achievement.C_IS_ACHIEVED, 1);
+
     }
 
     private boolean isInitialBrushAchieved(){
