@@ -10,6 +10,8 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.oralb.sdk.OBTSDK;
+
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
@@ -44,11 +46,11 @@ public class SplashActivity extends AppCompatActivity {
         mVisible = true;
 
         // Set up the user interaction to manually show or hide the system UI.
-        /*try{
+        try{
             OBTSDK.initialize(this);
         } catch(PackageManager.NameNotFoundException nnfe){
             nnfe.printStackTrace();
-        }*/
+        }
     }
 
     @Override
