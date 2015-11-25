@@ -23,13 +23,16 @@ public class LocalDBHelper extends SQLiteOpenHelper {
     private static final String CREATE_CURRENT_GEARS = "CREATE TABLE " + LocalDBContract.CurrentGear.TABLE_NAME + " (" +
             LocalDBContract.CurrentGear.C_TOOTHBRUSH + " INTEGER," +
             LocalDBContract.CurrentGear.C_TOOTHPASTE + " INTEGER);";
+    private static final String CREATE_ALARM_TIMES = "CREATE TABLE " + LocalDBContract.AlarmTime.TABLE_NAME + " (" +
+            LocalDBContract.AlarmTime.C_ALARM_TIME + " INTEGER);";
     // Concatenate SQL statements here
-    public static final String SQL_CREATE_STATEMENTS = CREATE_ACHIEVEMENTS + CREATE_CURRENT_GEARS;
+    public static final String SQL_CREATE_STATEMENTS = CREATE_ACHIEVEMENTS + CREATE_CURRENT_GEARS + CREATE_ALARM_TIMES;
 
     private static final String DROP_ACHIEVEMENTS = "DROP TABLE IF EXISTS " + LocalDBContract.Achievement.TABLE_NAME;
     private static final String DROP_CURRENT_GEARS = "DROP TABLE IF EXISTS " + LocalDBContract.CurrentGear.TABLE_NAME;
+    private static final String DROP_ALARM_TIMES = "DROP TABLE IF EXISTS " + LocalDBContract.AlarmTime.TABLE_NAME;
     // Concatenate SQL statements here
-    public static final String SQL_DROP_STATEMENTS = DROP_ACHIEVEMENTS + DROP_CURRENT_GEARS;
+    public static final String SQL_DROP_STATEMENTS = DROP_ACHIEVEMENTS + DROP_CURRENT_GEARS + DROP_ALARM_TIMES;
 
     public LocalDBHelper(Context c){
         super(c, DATABASE_NAME, null, DATABASE_VERSION);
@@ -69,5 +72,18 @@ public class LocalDBHelper extends SQLiteOpenHelper {
         cvDentistAppointmentAchievement.put(LocalDBContract.Achievement.C_IS_ACHIEVED, false);
 
         db.insert(LocalDBContract.Achievement.TABLE_NAME, null, cvFirstDayAchievement);
+
+        ContentValues cvBreakfast = new ContentValues();
+        cvBreakfast.put(LocalDBContract.AlarmTime.C_ALARM_TIME, 8);
+        db.insert(LocalDBContract.AlarmTime.TABLE_NAME, null, cvBreakfast);
+
+        ContentValues cvLunch = new ContentValues();
+        cvLunch.put(LocalDBContract.AlarmTime.C_ALARM_TIME, 12);
+        db.insert(LocalDBContract.AlarmTime.TABLE_NAME, null, cvLunch);
+
+        ContentValues cvDinner = new ContentValues();
+        cvDinner.put(LocalDBContract.AlarmTime.C_ALARM_TIME, 20);
+        db.insert(LocalDBContract.AlarmTime.TABLE_NAME, null, cvDinner);
+
     }
 }
