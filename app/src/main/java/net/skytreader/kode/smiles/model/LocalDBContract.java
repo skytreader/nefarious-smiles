@@ -30,6 +30,12 @@ public final class LocalDBContract {
         public static final String C_BUBBLE = "bubble_sprite";
     }
 
+    public static abstract class BrushingForm implements BaseColumns{
+        public static final String TABLE_NAME = "brushing_form";
+        public static final String C_ID = "id";
+        public static final String C_IS_TOOTHSY = "is_toothsy";
+    }
+
     /**
      * This will only model the daily alarms. Ergo, at most three rows here.
      */

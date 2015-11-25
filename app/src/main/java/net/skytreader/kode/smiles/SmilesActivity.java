@@ -42,7 +42,6 @@ public class SmilesActivity extends AppCompatActivity implements OBTBrushListene
     }
 
     private void startListening(){
-        Toast.makeText(getApplicationContext(), "private startListening", Toast.LENGTH_SHORT).show();
         OBTSDK.setOBTBrushListener(this);
         OBTSDK.authorizeSdk(new OBTSdkAuthorizationListener() {
             @Override

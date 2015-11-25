@@ -56,6 +56,8 @@
         </activity>
         <activity android:name=".WaitingActivity" >
         </activity>
+        <activity android:name=".BrushWaitingActivity" >
+        </activity>
     </application>
 
 </manifest>

@@ -11,7 +11,7 @@ import android.util.Log;
  * Created by chad on 11/25/15.
  */
 public class LocalDBHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 13;
+    private static final int DATABASE_VERSION = 14;
 
     public static final String DATABASE_NAME = "smiles_db";
     private static final String CREATE_ACHIEVEMENTS = "CREATE TABLE " + LocalDBContract.Achievement.TABLE_NAME + " (" +
@@ -25,15 +25,19 @@ public class LocalDBHelper extends SQLiteOpenHelper {
             LocalDBContract.CurrentGear.C_TOOTHPASTE + " INTEGER);";
     private static final String CREATE_ALARM_TIMES = "CREATE TABLE " + LocalDBContract.AlarmTime.TABLE_NAME + " (" +
             LocalDBContract.AlarmTime.C_TIME + " INTEGER);";
+    private static final String CREATE_BRUSHING_FORM = "CREATE TABLE " + LocalDBContract.BrushingForm.TABLE_NAME + " (" +
+            LocalDBContract.BrushingForm.C_ID + " INTEGER PRIMARY KEY," +
+            LocalDBContract.BrushingForm.C_IS_TOOTHSY + " INTEGER);";
 
     // Concatenate SQL statements here
-    public static final String[] SQL_CREATE_STATEMENTS = {CREATE_ACHIEVEMENTS, CREATE_CURRENT_GEARS, CREATE_ALARM_TIMES};
+    public static final String[] SQL_CREATE_STATEMENTS = {CREATE_ACHIEVEMENTS, CREATE_CURRENT_GEARS, CREATE_ALARM_TIMES, CREATE_BRUSHING_FORM};
 
     private static final String DROP_ACHIEVEMENTS = "DROP TABLE IF EXISTS " + LocalDBContract.Achievement.TABLE_NAME + ";";
     private static final String DROP_CURRENT_GEARS = "DROP TABLE IF EXISTS " + LocalDBContract.CurrentGear.TABLE_NAME + ";";
     private static final String DROP_ALARM_TIMES = "DROP TABLE IF EXISTS " + LocalDBContract.AlarmTime.TABLE_NAME + ";";
+    private static final String DROP_BRUSHING_FORM = "DROP TABLE IF EXISTS " + LocalDBContract.BrushingForm.TABLE_NAME + ";";
     // Concatenate SQL statements here
-    public static final String[] SQL_DROP_STATEMENTS = {DROP_ACHIEVEMENTS, DROP_CURRENT_GEARS, DROP_ALARM_TIMES};
+    public static final String[] SQL_DROP_STATEMENTS = {DROP_ACHIEVEMENTS, DROP_CURRENT_GEARS, DROP_ALARM_TIMES, DROP_BRUSHING_FORM};
 
     private Context c;
 
