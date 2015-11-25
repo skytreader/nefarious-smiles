@@ -34,10 +34,10 @@ public final class LocalDBContract {
      * This will only model the daily alarms. Ergo, at most three rows here.
      */
     public static abstract class AlarmTime implements BaseColumns{
-        public static final String TABLE_NAME = "alarm_times";
+        public static final String TABLE_NAME = "notif_times";
         /**
-         * C_ALARM_TIME is the hour of day when alarm goes off, as an integer.
+         * C_TIME is the hour of day when alarm goes off, as an integer.
          */
-        public static final String C_ALARM_TIME = "alarm_time";
+        public static final String C_TIME = "time";
     }
 }

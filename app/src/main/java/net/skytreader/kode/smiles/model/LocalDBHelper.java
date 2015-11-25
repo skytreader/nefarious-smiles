@@ -5,18 +5,15 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
-
-import net.skytreader.kode.smiles.model.LocalDBContract;
 
 
 /**
  * Created by chad on 11/25/15.
  */
 public class LocalDBHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 13;
 
-    public static final String DATABASE_NAME = "smiles";
+    public static final String DATABASE_NAME = "smiles_db";
     private static final String CREATE_ACHIEVEMENTS = "CREATE TABLE " + LocalDBContract.Achievement.TABLE_NAME + " (" +
             LocalDBContract.Achievement.C_ID + " INTEGER PRIMARY KEY," +
             LocalDBContract.Achievement.C_NAME + " TEXT," +
@@ -27,15 +24,16 @@ public class LocalDBHelper extends SQLiteOpenHelper {
             LocalDBContract.CurrentGear.C_TOOTHBRUSH + " INTEGER," +
             LocalDBContract.CurrentGear.C_TOOTHPASTE + " INTEGER);";
     private static final String CREATE_ALARM_TIMES = "CREATE TABLE " + LocalDBContract.AlarmTime.TABLE_NAME + " (" +
-            LocalDBContract.AlarmTime.C_ALARM_TIME + " INTEGER);";
+            LocalDBContract.AlarmTime.C_TIME + " INTEGER);";
+
     // Concatenate SQL statements here
-    public static final String SQL_CREATE_STATEMENTS = CREATE_ACHIEVEMENTS + CREATE_CURRENT_GEARS + CREATE_ALARM_TIMES;
+    public static final String[] SQL_CREATE_STATEMENTS = {CREATE_ACHIEVEMENTS, CREATE_CURRENT_GEARS, CREATE_ALARM_TIMES};
 
     private static final String DROP_ACHIEVEMENTS = "DROP TABLE IF EXISTS " + LocalDBContract.Achievement.TABLE_NAME + ";";
     private static final String DROP_CURRENT_GEARS = "DROP TABLE IF EXISTS " + LocalDBContract.CurrentGear.TABLE_NAME + ";";
     private static final String DROP_ALARM_TIMES = "DROP TABLE IF EXISTS " + LocalDBContract.AlarmTime.TABLE_NAME + ";";
     // Concatenate SQL statements here
-    public static final String SQL_DROP_STATEMENTS = DROP_ACHIEVEMENTS + DROP_CURRENT_GEARS + DROP_ALARM_TIMES;
+    public static final String[] SQL_DROP_STATEMENTS = {DROP_ACHIEVEMENTS, DROP_CURRENT_GEARS, DROP_ALARM_TIMES};
 
     private Context c;
 
@@ -46,16 +44,19 @@ public class LocalDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.i("CHAD", SQL_CREATE_STATEMENTS);
-        db.execSQL(SQL_CREATE_STATEMENTS);
+        for(int i = 0; i < SQL_CREATE_STATEMENTS.length; i++) {
+            Log.i("CHAD", SQL_CREATE_STATEMENTS[i]);
+            db.execSQL(SQL_CREATE_STATEMENTS[i]);
+        }
         seedData(db);
-        Toast.makeText(this.c, "db created", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.i("CHAD", SQL_DROP_STATEMENTS);
-        db.execSQL(SQL_DROP_STATEMENTS);
+        for(int i = 0; i < SQL_DROP_STATEMENTS.length; i++) {
+            Log.i("CHAD", SQL_DROP_STATEMENTS[i]);
+            db.execSQL(SQL_DROP_STATEMENTS[i]);
+        }
         onCreate(db);
     }
 
@@ -86,15 +87,15 @@ public class LocalDBHelper extends SQLiteOpenHelper {
         db.insert(LocalDBContract.Achievement.TABLE_NAME, null, cvFirstDayAchievement);
 
         ContentValues cvBreakfast = new ContentValues();
-        cvBreakfast.put(LocalDBContract.AlarmTime.C_ALARM_TIME, 8);
+        cvBreakfast.put(LocalDBContract.AlarmTime.C_TIME, 8);
         db.insert(LocalDBContract.AlarmTime.TABLE_NAME, null, cvBreakfast);
 
         ContentValues cvLunch = new ContentValues();
-        cvLunch.put(LocalDBContract.AlarmTime.C_ALARM_TIME, 12);
+        cvLunch.put(LocalDBContract.AlarmTime.C_TIME, 12);
         db.insert(LocalDBContract.AlarmTime.TABLE_NAME, null, cvLunch);
 
         ContentValues cvDinner = new ContentValues();
-        cvDinner.put(LocalDBContract.AlarmTime.C_ALARM_TIME, 20);
+        cvDinner.put(LocalDBContract.AlarmTime.C_TIME, 20);
         db.insert(LocalDBContract.AlarmTime.TABLE_NAME, null, cvDinner);
 
     }

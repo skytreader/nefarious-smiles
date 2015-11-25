@@ -54,6 +54,8 @@
             android:label="@string/title_activity_achievement"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <activity android:name=".WaitingActivity" >
+        </activity>
     </application>
 
 </manifest>
