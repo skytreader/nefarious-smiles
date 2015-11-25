@@ -10,16 +10,6 @@
     tools:showIn="@layout/activity_smiles"
     tools:context="net.skytreader.kode.smiles.SmilesActivity">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Start Listening"
-        android:id="@+id/button3"
-        android:layout_marginTop="137dp"
-        android:onClick="startListening"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

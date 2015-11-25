@@ -45,7 +45,6 @@ public class SplashActivity extends AppCompatActivity {
 
         mVisible = true;
 
-        // Set up the user interaction to manually show or hide the system UI.
         try{
             OBTSDK.initialize(this);
         } catch(PackageManager.NameNotFoundException nnfe){

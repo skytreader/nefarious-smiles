@@ -23,7 +23,7 @@ public class SmilesActivity extends AppCompatActivity implements OBTBrushListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //startListening();
+        startListening();
         setContentView(R.layout.activity_smiles);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -39,6 +39,7 @@ public class SmilesActivity extends AppCompatActivity implements OBTBrushListene
     }
 
     private void startListening(){
+        Toast.makeText(getApplicationContext(), "private startListening", Toast.LENGTH_SHORT).show();
         OBTSDK.setOBTBrushListener(this);
         OBTSDK.authorizeSdk(new OBTSdkAuthorizationListener() {
             @Override
@@ -55,13 +56,14 @@ public class SmilesActivity extends AppCompatActivity implements OBTBrushListene
     }
 
     public void startListening(View v){
+        //Toast.makeText(getApplicationContext(), "scanning for brushes", Toast.LENGTH_SHORT).show();
         startListening();
     }
 
     @Override
     protected void onResume(){
         super.onResume();
-        //startListening();
+        startListening();
     }
 
     @Override
