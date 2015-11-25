@@ -98,7 +98,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 if(isInitialBrushAchieved()){
 
                 } else{
+                    String[] smileDetails = fetchInitialBrushDetails();
                     Intent smiles = new Intent(LoginActivity.this, SmilesActivity.class);
+                    smiles.putExtra("name", smileDetails[0]);
+                    smiles.putExtra("desc", smileDetails[1]);
                     startActivity(smiles);
                 }
             }
@@ -106,6 +109,41 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+    }
+
+    private boolean isInitialBrushAchieved(){
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String[] cols = {LocalDBContract.Achievement.C_IS_ACHIEVED};
+        String[] whereVal = {"brush-destiny"};
+        Cursor c = db.query(LocalDBContract.Achievement.TABLE_NAME,
+                cols, LocalDBContract.Achievement.C_CODE, whereVal, null, null, null);
+        try{
+            if(c.moveToFirst()){
+                return c.getInt(0) != 0;
+            }
+            return false;
+        } finally{
+            c.close();
+        }
+    }
+
+    private String[] fetchInitialBrushDetails(){
+        String[] details = new String[2];
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String[] cols = {LocalDBContract.Achievement.C_NAME, LocalDBContract.Achievement.C_DESC};
+        String[] whereVal = {"brush-destiny"};
+        Cursor c = db.query(LocalDBContract.Achievement.TABLE_NAME,
+                cols, LocalDBContract.Achievement.C_CODE, whereVal, null, null, null);
+        try{
+            if(c.moveToFirst()){
+                details[0] = c.getString(0);
+                details[1] = c.getString(1);
+            }
+        } finally{
+            c.close();
+        }
+
+        return details;
     }
 
     private void populateAutoComplete() {
@@ -361,20 +399,5 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-    private boolean isInitialBrushAchieved(){
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String[] cols = {LocalDBContract.Achievement.C_IS_ACHIEVED};
-        String[] whereVal = {"brush-destiny"};
-        Cursor c = db.query(LocalDBContract.Achievement.TABLE_NAME,
-                cols, LocalDBContract.Achievement.C_CODE, whereVal, null, null, null);
-        try{
-            if(c.moveToFirst()){
-                return c.getInt(0) != 0;
-            }
-            return false;
-        } finally{
-            c.close();
-        }
-    }
 }
 
