@@ -21,6 +21,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -138,8 +139,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 cols, LocalDBContract.Achievement.C_CODE+"=?", whereVal, null, null, null);
         try{
             if(c.moveToFirst()){
-                details[0] = c.getString(0);
-                details[1] = c.getString(1);
+                details[0] = c.getString(c.getColumnIndexOrThrow(LocalDBContract.Achievement.C_NAME));
+                details[1] = c.getString(c.getColumnIndexOrThrow(LocalDBContract.Achievement.C_DESC));
+                Log.i("CHAD", "over here " + details[0] + " " + details[1]);
             }
         } finally{
             c.close();

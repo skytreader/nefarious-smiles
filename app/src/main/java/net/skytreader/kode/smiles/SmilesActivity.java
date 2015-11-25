@@ -43,13 +43,13 @@ public class SmilesActivity extends AppCompatActivity implements OBTBrushListene
         OBTSDK.authorizeSdk(new OBTSdkAuthorizationListener() {
             @Override
             public void onSdkAuthorizationSuccess() {
-
+                Toast.makeText(getApplicationContext(), "Scanning...", Toast.LENGTH_LONG).show();
                 OBTSDK.startScanning();
             }
 
             @Override
             public void onSdkAuthorizationFailed(int i) {
-
+                Toast.makeText(getApplicationContext(), "SDK Auth Failed", Toast.LENGTH_LONG).show();
             }
         });
     }
