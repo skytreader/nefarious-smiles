@@ -18,10 +18,14 @@ import com.oralb.sdk.OBTSdkAuthorizationListener;
 import java.util.List;
 
 public class SmilesActivity extends AppCompatActivity implements OBTBrushListener {
-
+    private String name, desc, code;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent i = getIntent();
+        name = i.getStringExtra("name");
+        desc = i.getStringExtra("desc");
+        code = i.getStringExtra("code");
         startListening();
         setContentView(R.layout.activity_smiles);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -72,6 +76,9 @@ public class SmilesActivity extends AppCompatActivity implements OBTBrushListene
         t.show();
         if(list.size() > 0){
             Intent achievement = new Intent(this, AchievementActivity.class);
+            achievement.putExtra("name", name);
+            achievement.putExtra("desc", desc);
+            achievement.putExtra("code", code);
             startActivity(achievement);
         }
     }

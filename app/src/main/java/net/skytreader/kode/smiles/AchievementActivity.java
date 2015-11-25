@@ -1,6 +1,8 @@
 package net.skytreader.kode.smiles;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,8 +12,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import net.skytreader.kode.smiles.model.LocalDBContract;
+import net.skytreader.kode.smiles.model.LocalDBHelper;
+
 public class AchievementActivity extends AppCompatActivity {
-    private String name, desc;
+    private String name, desc, code;
+    private LocalDBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +25,9 @@ public class AchievementActivity extends AppCompatActivity {
         Intent i = getIntent();
         name = i.getStringExtra("name");
         desc = i.getStringExtra("desc");
+        code = i.getStringExtra("code");
+        dbHelper = new LocalDBHelper(getApplicationContext());
+        setAchievementDone(code);
         setContentView(R.layout.activity_achievement);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -38,6 +47,16 @@ public class AchievementActivity extends AppCompatActivity {
         super.onNewIntent(i);
         Log.i("CHAD", "new intent");
         setIntent(i);
+    }
+
+    private void setAchievementDone(String code){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(LocalDBContract.Achievement.C_IS_ACHIEVED, 1);
+        String where = LocalDBContract.Achievement.C_CODE + " = ?";
+        String[] whereVal = {code};
+
+        db.update(LocalDBContract.Achievement.TABLE_NAME, cv, where, whereVal);
     }
 
     @Override

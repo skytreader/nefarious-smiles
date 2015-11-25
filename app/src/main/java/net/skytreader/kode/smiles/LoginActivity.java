@@ -3,7 +3,6 @@ package net.skytreader.kode.smiles;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
@@ -38,6 +37,7 @@ import net.skytreader.kode.smiles.model.LocalDBHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -101,12 +101,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                 if(isInitialBrushAchieved()){
                     Intent wait = new Intent(LoginActivity.this, WaitingActivity.class);
+                    Log.i("CHAD", "will now wait...");
                     startActivity(wait);
                 } else{
                     String[] smileDetails = fetchInitialBrushDetails();
                     Intent smiles = new Intent(LoginActivity.this, SmilesActivity.class);
                     smiles.putExtra("name", smileDetails[0]);
                     smiles.putExtra("desc", smileDetails[1]);
+                    smiles.putExtra("code", smileDetails[2]);
                     startActivity(smiles);
                 }
             }
@@ -116,11 +118,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mProgressView = findViewById(R.id.login_progress);
     }
 
-    private void setAchievementDone(String code){
-        ContentValues cv = new ContentValues();
-        cv.put(LocalDBContract.Achievement.C_IS_ACHIEVED, 1);
-
-    }
 
     private boolean isInitialBrushAchieved(){
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -139,9 +136,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private String[] fetchInitialBrushDetails(){
-        String[] details = new String[2];
+        String[] details = new String[3];
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String[] cols = {LocalDBContract.Achievement.C_NAME, LocalDBContract.Achievement.C_DESC};
+        String[] cols = {LocalDBContract.Achievement.C_NAME, LocalDBContract.Achievement.C_DESC, LocalDBContract.Achievement.C_CODE};
         String[] whereVal = {"brush-destiny"};
         Cursor c = db.query(LocalDBContract.Achievement.TABLE_NAME,
                 cols, LocalDBContract.Achievement.C_CODE+"=?", whereVal, null, null, null);
@@ -149,6 +146,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if(c.moveToFirst()){
                 details[0] = c.getString(c.getColumnIndexOrThrow(LocalDBContract.Achievement.C_NAME));
                 details[1] = c.getString(c.getColumnIndexOrThrow(LocalDBContract.Achievement.C_DESC));
+                details[2] = c.getString(c.getColumnIndexOrThrow(LocalDBContract.Achievement.C_CODE));
                 Log.i("CHAD", "over here " + details[0] + " " + details[1]);
             }
         } finally{
