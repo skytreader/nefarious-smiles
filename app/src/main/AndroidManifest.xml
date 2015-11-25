@@ -19,10 +19,11 @@
         android:theme="@style/AppTheme" >
         <meta-data
             android:name="com.obt.sdk.ApplicationId"
-            android:value="@string/obt_sdk_app_id"></meta-data>
+            android:value="@string/obt_sdk_app_id" />
         <meta-data
             android:name="com.obt.sdk.ApplicationKey"
-            android:value="@string/obt_sdk_app_key"></meta-data>
+            android:value="@string/obt_sdk_app_key" />
+
         <activity
             android:name=".SplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -37,6 +38,11 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" >
+        </activity>
+        <activity
+            android:name=".SmilesActivity"
+            android:label="@string/title_activity_smiles"
+            android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>
 

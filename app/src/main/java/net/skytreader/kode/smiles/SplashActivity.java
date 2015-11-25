@@ -151,6 +151,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public void toSignUp(View v){
+        Intent testIntent = new Intent(this, LoginActivity.class);
 
     }
 
