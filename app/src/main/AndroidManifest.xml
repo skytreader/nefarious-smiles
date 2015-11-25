@@ -44,10 +44,16 @@
             android:label="@string/title_activity_smiles"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
-        <activity android:name="com.obt.OBTActivity"
-        android:screenOrientation="portrait"
-        android:theme="@android:style/Theme.Translucent.NoTitleBar"
-        android:label="@string/app_name" />
+        <activity
+            android:name="com.obt.OBTActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".AchievementActivity"
+            android:label="@string/title_activity_achievement"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>

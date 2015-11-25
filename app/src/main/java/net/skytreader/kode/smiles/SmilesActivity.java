@@ -1,6 +1,7 @@
 package net.skytreader.kode.smiles;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,26 +18,12 @@ import com.oralb.sdk.OBTSdkAuthorizationListener;
 
 import java.util.List;
 
-public class SmilesActivity extends AppCompatActivity {
-    private SmileBrushListener sbl;
+public class SmilesActivity extends AppCompatActivity implements OBTBrushListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sbl = new SmileBrushListener(getApplicationContext());
-        OBTSDK.setOBTBrushListener(sbl);
-        OBTSDK.authorizeSdk(new OBTSdkAuthorizationListener() {
-            @Override
-            public void onSdkAuthorizationSuccess() {
-
-                OBTSDK.startScanning();
-            }
-
-            @Override
-            public void onSdkAuthorizationFailed(int i) {
-
-            }
-        });
+        //startListening();
         setContentView(R.layout.activity_smiles);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -51,11 +38,8 @@ public class SmilesActivity extends AppCompatActivity {
         });
     }
 
-    public void startListening(View v){
-        if(sbl == null) {
-            sbl = new SmileBrushListener(getApplicationContext());
-        }
-        OBTSDK.setOBTBrushListener(sbl);
+    private void startListening(){
+        OBTSDK.setOBTBrushListener(this);
         OBTSDK.authorizeSdk(new OBTSdkAuthorizationListener() {
             @Override
             public void onSdkAuthorizationSuccess() {
@@ -68,38 +52,103 @@ public class SmilesActivity extends AppCompatActivity {
 
             }
         });
-        Context context = getApplicationContext();
-        Toast t = Toast.makeText(context, "scanning for brush", Toast.LENGTH_SHORT);
-        t.show();
+    }
+
+    public void startListening(View v){
+        startListening();
     }
 
     @Override
     protected void onResume(){
         super.onResume();
-        if(sbl == null) {
-            sbl = new SmileBrushListener(getApplicationContext());
-        }
-        OBTSDK.setOBTBrushListener(sbl);
-        OBTSDK.authorizeSdk(new OBTSdkAuthorizationListener() {
-            @Override
-            public void onSdkAuthorizationSuccess() {
-
-                OBTSDK.startScanning();
-            }
-
-            @Override
-            public void onSdkAuthorizationFailed(int i) {
-
-            }
-        });
-        Context context = getApplicationContext();
-        Toast t = Toast.makeText(context, "scanning for brush", Toast.LENGTH_SHORT);
-        t.show();
-        //OBTSDK.setOBTBrushListener(this);
-        //Context context = getApplicationContext();
-        //Toast t = Toast.makeText(context, "resume listening", Toast.LENGTH_SHORT);
-        //t.show();
+        //startListening();
     }
 
+    @Override
+    public void onNearbyBrushesFoundOrUpdated(List<OBTBrush> list) {
+        Context context = getApplicationContext();
+        Toast t = Toast.makeText(context, "brush(es) found", Toast.LENGTH_SHORT);
+        t.show();
+        if(list.size() > 0){
+            Intent achievement = new Intent(this, AchievementActivity.class);
+            startActivity(achievement);
+        }
+    }
 
+    @Override
+    public void onBluetoothError() {
+        Context context = getApplicationContext();
+        Toast t = Toast.makeText(context, "bluetooth error :C", Toast.LENGTH_SHORT);
+        t.show();
+    }
+
+    @Override
+    public void onBrushDisconnected() {
+        Context context = getApplicationContext();
+        Toast t = Toast.makeText(context, "disconnect", Toast.LENGTH_SHORT);
+        t.show();
+    }
+
+    @Override
+    public void onBrushConnected() {
+        Context context = getApplicationContext();
+        Toast t = Toast.makeText(context, "brush connected", Toast.LENGTH_SHORT);
+        t.show();
+    }
+
+    @Override
+    public void onBrushConnecting() {
+        Context context = getApplicationContext();
+        Toast t = Toast.makeText(context, "brush connecting...", Toast.LENGTH_SHORT);
+        t.show();
+    }
+
+    @Override
+    public void onBrushingTimeChanged(long l) {
+        Context context = getApplicationContext();
+        Toast t = Toast.makeText(context, "brushtime changed", Toast.LENGTH_SHORT);
+        t.show();
+    }
+
+    @Override
+    public void onBrushingModeChanged(int i) {
+        Context context = getApplicationContext();
+        Toast t = Toast.makeText(context, "brush mode changed", Toast.LENGTH_SHORT);
+        t.show();
+    }
+
+    @Override
+    public void onBrushStateChanged(int i) {
+        Context context = getApplicationContext();
+        Toast t = Toast.makeText(context, "brush state changed", Toast.LENGTH_SHORT);
+        t.show();
+    }
+
+    @Override
+    public void onRSSIChanged(int i) {
+        Context context = getApplicationContext();
+        Toast t = Toast.makeText(context, "rssi", Toast.LENGTH_SHORT);
+        t.show();
+    }
+
+    @Override
+    public void onBatteryLevelChanged(float v) {
+        Context context = getApplicationContext();
+        Toast t = Toast.makeText(context, "battery level", Toast.LENGTH_SHORT);
+        t.show();
+    }
+
+    @Override
+    public void onSectorChanged(int i) {
+        Context context = getApplicationContext();
+        Toast t = Toast.makeText(context, "sector changed", Toast.LENGTH_SHORT);
+        t.show();
+    }
+
+    @Override
+    public void onHighPressureChanged(boolean b) {
+        Context context = getApplicationContext();
+        Toast t = Toast.makeText(context, "high pressure changed", Toast.LENGTH_SHORT);
+        t.show();
+    }
 }
