@@ -37,10 +37,11 @@ public class SplashActivity extends AppCompatActivity {
 
     private boolean mVisible;
 
+    private BackgroundSound bgSound = new BackgroundSound(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_splash);
 
         mVisible = true;
@@ -50,6 +51,18 @@ public class SplashActivity extends AppCompatActivity {
         } catch(PackageManager.NameNotFoundException nnfe){
             nnfe.printStackTrace();
         }
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        bgSound.execute(null, null);
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        bgSound.cancel(true);
     }
 
     @Override
