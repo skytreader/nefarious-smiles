@@ -66,6 +66,10 @@ public class SmilesActivity extends AppCompatActivity implements OBTBrushListene
         startListening();
     }
 
+    private boolean isInitialBrushAchieved(){
+        return false;
+    }
+
     @Override
     public void onNearbyBrushesFoundOrUpdated(List<OBTBrush> list) {
         Context context = getApplicationContext();
