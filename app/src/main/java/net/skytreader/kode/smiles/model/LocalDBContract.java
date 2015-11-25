@@ -1,4 +1,4 @@
-package net.skytreader.kode.smiles.net.skytreaer.kode.smiles.model;
+package net.skytreader.kode.smiles.model;
 
 import android.provider.BaseColumns;
 

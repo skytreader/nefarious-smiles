@@ -1,9 +1,11 @@
-package net.skytreader.kode.smiles.net.skytreaer.kode.smiles.model;
+package net.skytreader.kode.smiles.model;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import net.skytreader.kode.smiles.model.LocalDBContract;
 
 
 /**
