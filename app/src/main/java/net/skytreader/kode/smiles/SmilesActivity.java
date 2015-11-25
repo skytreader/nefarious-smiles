@@ -100,4 +100,6 @@ public class SmilesActivity extends AppCompatActivity {
         //Toast t = Toast.makeText(context, "resume listening", Toast.LENGTH_SHORT);
         //t.show();
     }
+
+
 }

@@ -23,4 +23,6 @@
         completions."
     </string>
     <string name="title_activity_smiles">SmilesActivity</string>
+    <string name="welcome_text">Hiya! Nice to see you! Get started by pairing your toothbrush with the app.</string>
+    <string name="welcome_instructions">Got an Oral-B Bluetooth toothbrush? Turn it on then tap below!</string>
 </resources>
