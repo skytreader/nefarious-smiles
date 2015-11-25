@@ -7,6 +7,9 @@
     <string name="login">Log In</string>
     <string name="title_activity_login">Sign in</string>
 
+    <string name="obt_sdk_app_id">b59777bd-0b32-41ce-9021-7427a3e62385</string>
+    <string name="obt_sdk_app_key">505bc436-47a4-4b93-8323-bfc14efc665c</string>
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>

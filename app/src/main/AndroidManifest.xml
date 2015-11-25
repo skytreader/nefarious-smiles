@@ -17,6 +17,12 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
+        <meta-data
+            android:name="com.obt.sdk.ApplicationId"
+            android:value="@string/obt_sdk_app_id"></meta-data>
+        <meta-data
+            android:name="com.obt.sdk.ApplicationKey"
+            android:value="@string/obt_sdk_app_key"></meta-data>
         <activity
             android:name=".SplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
