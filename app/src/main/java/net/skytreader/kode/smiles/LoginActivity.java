@@ -349,5 +349,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
         }
     }
+
+    private boolean isInitialBrushAchieved(){
+        return false;
+    }
 }
 

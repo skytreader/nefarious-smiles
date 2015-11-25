@@ -12,6 +12,7 @@ public final class LocalDBContract {
     public static abstract class Achievement implements BaseColumns{
         public static final String TABLE_NAME = "achievements";
         public static final String C_ID = "id";
+        public static final String C_CODE = "code";
         public static final String C_NAME = "name";
         public static final String C_DESC = "description";
         public static final String C_IS_ACHIEVED = "achieved";

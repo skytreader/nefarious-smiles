@@ -54,6 +54,7 @@ public class LocalDBHelper extends SQLiteOpenHelper {
         // Create the achievements
         ContentValues cvInitialBrushAchievement = new ContentValues();
         cvInitialBrushAchievement.put(LocalDBContract.Achievement.C_NAME, "A Brush with Destiny");
+        cvInitialBrushAchievement.put(LocalDBContract.Achievement.C_CODE, "brush-destiny");
         cvInitialBrushAchievement.put(LocalDBContract.Achievement.C_DESC, "Connect your brush with the app");
         cvInitialBrushAchievement.put(LocalDBContract.Achievement.C_IS_ACHIEVED, false);
 
@@ -61,6 +62,7 @@ public class LocalDBHelper extends SQLiteOpenHelper {
 
         ContentValues cvFirstDayAchievement = new ContentValues();
         cvFirstDayAchievement.put(LocalDBContract.Achievement.C_NAME, "The First Day");
+        cvFirstDayAchievement.put(LocalDBContract.Achievement.C_CODE, "first-day");
         cvFirstDayAchievement.put(LocalDBContract.Achievement.C_DESC, "Your first day of brushing");
         cvFirstDayAchievement.put(LocalDBContract.Achievement.C_IS_ACHIEVED, false);
 
@@ -68,6 +70,7 @@ public class LocalDBHelper extends SQLiteOpenHelper {
 
         ContentValues cvDentistAppointmentAchievement = new ContentValues();
         cvDentistAppointmentAchievement.put(LocalDBContract.Achievement.C_NAME, "Say \"Ah!\"");
+        cvDentistAppointmentAchievement.put(LocalDBContract.Achievement.C_CODE, "say-ah");
         cvDentistAppointmentAchievement.put(LocalDBContract.Achievement.C_DESC, "Have an appointment with your dentist");
         cvDentistAppointmentAchievement.put(LocalDBContract.Achievement.C_IS_ACHIEVED, false);
 
